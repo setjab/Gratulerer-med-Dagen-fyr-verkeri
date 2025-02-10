@@ -36,26 +36,11 @@
             0% { opacity: 0; transform: scale(0); }
             100% { opacity: 1; transform: scale(1); }
         }
-        #play-audio {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 100;
-        }
     </style>
 </head>
 <body>
     <canvas></canvas>
-    <button id="play-audio">Start Lyd</button>
     <div id="text-container"></div>
-    <audio id="background-audio" src="https://www.dropbox.com/scl/fi/urrl52zuvrjp1dozgl4y5/Sulale_Habibi.mp4.-5.mp4?rlkey=tdtumly9x6n2p1hi6dve5d63p&dl=1" loop></audio>
 
     <script>
         const canvas = document.querySelector("canvas");
@@ -130,17 +115,10 @@
             container.style.opacity = "1";
         }
 
-        const audio = document.getElementById("background-audio");
-        document.getElementById("play-audio").addEventListener("click", () => {
-            audio.play().then(() => {
-                createBigBang();
-                animate();
-                animateText();
-                document.getElementById("play-audio").style.display = "none";
-            }).catch(error => {
-                console.error("Lydfeil:", error);
-            });
-        });
+        // Start animasjonene umiddelbart
+        createBigBang();
+        animate();
+        setTimeout(animateText, 3000); // Teksten kommer etter 3 sekunder
     </script>
 </body>
 </html>
