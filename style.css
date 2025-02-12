@@ -80,4 +80,21 @@ html {
     font-size: 0.5em;
     letter-spacing: 0.15em;
   }
+  h1.title {
+  font-size: 5rem; /* Gjør teksten større */
+  font-weight: bold;
+  text-align: center;
+  color: #FFD700; /* Gullfarge */
+  text-shadow: 0 0 10px #FFD700, 0 0 20px #FF4500, 0 0 30px #FF6347;
+  animation: glow 2s infinite alternate; /* Gir en glødende effekt */
+}
+
+/* Animasjon for glød */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #FFD700, 0 0 20px #FF4500, 0 0 30px #FF6347;
+  }
+  to {
+    text-shadow: 0 0 20px #FF4500, 0 0 30px #FF6347, 0 0 40px #FFD700;
+  }
 }
