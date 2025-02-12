@@ -1,124 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ungdomsteamet - Nav Land</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background-color: black;
-        }
-        canvas {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        #text-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 6rem;
-            font-family: Arial, sans-serif;
-            display: flex;
-            opacity: 0;
-        }
-        .letter {
-            opacity: 0;
-            display: inline-block;
-            transform: scale(0);
-            animation: appear 1s forwards;
-        }
-        @keyframes appear {
-            0% { opacity: 0; transform: scale(0); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-    </style>
-</head>
-<body>
-    <canvas></canvas>
-    <div id="text-container"></div>
+<!--
+Three.js remake of a cover art I found on youtube. See pen details for credits and a friendly invitation:
+https://codepen.io/pavlovsk/details/LEPOpdO
 
-    <script>
-        const canvas = document.querySelector("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-        const colors = ["red", "orange", "yellow", "green", "blue", "purple", "white"];
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.radius = Math.random() * 6 + 2;
-                this.color = color;
-                this.speedX = (Math.random() - 0.5) * 2;
-                this.speedY = (Math.random() - 0.5) * 2;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.radius -= 0.02;
-                if (this.radius < 0) this.radius = 0;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-        }
-
-        function createBigBang() {
-            for (let i = 0; i < 300; i++) {
-                const x = canvas.width / 2;
-                const y = canvas.height / 2;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particles.push(new Particle(x, y, color));
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((particle, index) => {
-                if (particle.radius <= 0) {
-                    particles[index] = new Particle(canvas.width / 2, canvas.height / 2, particle.color);
-                } else {
-                    particle.update();
-                    particle.draw();
-                }
-            });
-            requestAnimationFrame(animate);
-        }
-
-        function animateText() {
-            const text = "Ungdomsteamet - Nav Land";
-            const container = document.getElementById("text-container");
-            container.innerHTML = "";
-
-            text.split("").forEach((letter, index) => {
-                const span = document.createElement("span");
-                span.textContent = letter;
-                span.classList.add("letter");
-                span.style.animationDelay = `${index * 0.2}s`;
-                span.style.color = colors[index % colors.length];
-                container.appendChild(span);
-            });
-
-            container.style.opacity = "1";
-        }
-
-        // Start animasjonene umiddelbart
-        createBigBang();
-        animate();
-        setTimeout(animateText, 3000); // Teksten kommer etter 3 sekunder
-    </script>
-</body>
-</html>
+Controls:
+Space (or dblclick saturn): Toggle hula hoop effect
+Enter (or dblclick text): Open the music in new tab
+-->
+<div class="loading">
+  <img src="https://assets.codepen.io/25387/idnb-original.webp" alt="intelligent drum and bass vol. 2">
+  <p>
+    <span class="letter">l</span>
+    <span class="letter">o</span>
+    <span class="letter">a</span>
+    <span class="letter">d</span>
+    <span class="letter">i</span>
+    <span class="letter">n</span>
+    <span class="letter">g</span>
+  </p>
+</div>
+<script type="importmap">
+  {
+    "imports": {
+      "./three": "https://assets.codepen.io/25387/three.webgpu.min.js",
+      "three/webgpu": "https://assets.codepen.io/25387/three.webgpu.min.js",
+      "./three/tsl": "https://assets.codepen.io/25387/three.tsl.js",
+      "./three/addons/": "https://esm.sh/three@0.172.0/examples/jsm/"
+    }
+  }
+</script>
