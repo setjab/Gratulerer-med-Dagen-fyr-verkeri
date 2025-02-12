@@ -24,18 +24,13 @@
   // Scene, Camera, Renderer
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer();
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
   // Sphere Geometry (Big Bang Effect)
-  const sphereGeometry = new THREE.SphereGeometry(3, 32, 32);
-  const sphereMaterial = new THREE.MeshStandardMaterial({
-    color: 0xffffff,
-    emissive: 0x000000,
-    emissiveIntensity: 0.5,
-    wireframe: true
-  });
+  const sphereGeometry = new THREE.SphereGeometry(2, 32, 32);
+  const sphereMaterial = new THREE.MeshBasicMaterial({ vertexColors: true, wireframe: false });
   const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
   scene.add(sphere);
 
@@ -44,7 +39,7 @@
   pointLight.position.set(10, 10, 10);
   scene.add(pointLight);
 
-  const ambientLight = new THREE.AmbientLight(0x404040, 2); // Soft ambient light
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Soft ambient light
   scene.add(ambientLight);
 
   // Text (Velkommen til Nav Land 2050)
@@ -56,20 +51,17 @@
       const textGeometry = new TextGeometry('Velkommen til Nav Land 2050', {
         font: font,
         size: 1,
-        height: 0.5,
+        height: 0.3,
         curveSegments: 12,
         bevelEnabled: true,
-        bevelThickness: 0.03,
+        bevelThickness: 0.05,
         bevelSize: 0.02,
         bevelSegments: 5
       });
 
-      const textMaterial = new THREE.MeshStandardMaterial({
-        color: 0xffaa00,
-        emissive: 0xff6600,
-        emissiveIntensity: 0.8,
-        metalness: 0.5,
-        roughness: 0.3
+      const textMaterial = new THREE.MeshBasicMaterial({
+        color: 0xff8800,
+        wireframe: false
       });
 
       textMesh = new THREE.Mesh(textGeometry, textMaterial);
@@ -78,16 +70,20 @@
     }
   );
 
-  // Animation (Regnbuefarger + Big Bang Effekt)
+  // Animation (Rainbow Colors + Big Bang Effekt)
   const clock = new THREE.Clock();
   function animate() {
     const time = clock.getElapsedTime();
 
-    // Sphere animation
-    sphere.scale.set(Math.sin(time * 2) + 2, Math.sin(time * 2) + 2, Math.sin(time * 2) + 2);
-    sphere.material.color.setHSL((time % 1) * 0.7, 1, 0.5);
+    // Sphere animation (Big Bang)
+    sphere.rotation.y += 0.01;
+    sphere.rotation.x += 0.01;
 
-    // Text glow effect
+    // Change sphere color dynamically
+    const color = new THREE.Color(`hsl(${(time * 50) % 360}, 100%, 50%)`);
+    sphere.material.color = color;
+
+    // Text animation
     if (textMesh) {
       textMesh.rotation.y += 0.01;
       textMesh.rotation.x = Math.sin(time * 0.5) * 0.2;
