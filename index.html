@@ -1,18 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gratulerer med Dagen Sophia</title>
-  <link rel="stylesheet" href="style.css"> <!-- Kobling til CSS -->
-</head>
-<body>
-  <h1 class="title">
-    Gratulerer med Dagen Sophia
-    <span>  </span>
-  </h1>
-  <canvas id="fireworks-canvas"></canvas>
-  <script src="script.js" defer></script> <!-- Kobling til JS -->
-</body>
-</html>
+h1.title {
+  position: absolute;
+  top: 10%; /* Juster plasseringen */
+  width: 100%;
+  text-align: center;
+  font-size: 4rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 
+               0 0 40px #00ffff, 0 0 50px #00ffff, 0 0 60px #ff00ff;
+  animation: rainbowGlow 3s infinite, bounce 5s infinite ease-in-out;
+  transform: rotateX(10deg);
+}
 
+/* Animasjon for bevegelse */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0) rotateX(10deg);
+  }
+  50% {
+    transform: translateY(-20px) rotateX(10deg);
+  }
+}
